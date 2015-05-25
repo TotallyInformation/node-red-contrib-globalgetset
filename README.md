@@ -1,61 +1,41 @@
-# node-red-contrib-global
-[Node-Red](http://nodered.org) Node that sets/gets a context.global variable.
+# node-red-contrib-globalgetset
+[Node-Red](http://nodered.org) Node that sets/gets a context.global variable. This saves you having to use a function node with JavaScript.
+
+You can easily pass in a msg containing an element to store in the global variables. In this case, assuming there are no errors, the msg will
+be passed through unchanged.
+
+You can also use the node to retrieve something from the global variables and add it to the msg (or indeed to another global variable). This allows
+you to then process it it downstream. For example, the following node could be a ```switch``` node that could switch output depending on the variable.
+
+## Note
+It is likely that future updates to Node-Red will integrate this type of feature.
 
 #Install
 
 Run the following command in the root directory of your Node-RED install
 
-	npm install node-red-contrib-global
+	npm install node-red-contrib-globalgetset
 
 While in development, install with:
    
-    npm install https://github.com/TotallyInformation/node-red-contrib-global/tarball/master
+    npm install https://github.com/TotallyInformation/node-red-contrib-globalgetset/tarball/master
 
 #Usage
 
 The node expects an input from the incoming msg. By default, this is msg.payload. If it is a recognisable date/time, it will apply a format and output the resulting string or
 object accordingly.
 
-There are 5 parameters to the node.
+There are 7 parameters to the node. Note that the first 3 refer to the global variable, the next 2 refer to the source/target variable.
 
-1. *Topic* - as expected, if provided, msg.topic will be set on the output. Otherwise, any input topic is passed through
-2. *Input* - defines the Property on the input msg that carries the date/time. msg.payload by default.
-   Input must be either a Javascript Date object or a [date/time string that can be parsed by Modment.JS](http://momentjs.com/docs/#/parsing/string/).
-
-   It tries to work out the input format and allows more variations to be recognised. Such as 'Thursday, February 6th, 2014 9:20pm'
-
-   It can also be null, non-existant or an empty string, in which case it will be set to the current date/time. Useful for easily injecting the
-   current date/time from any trigger.
-3. *Format* - defines how the output should be formatted.
-   Can be any [format string recognised by Moment.JS](http://momentjs.com/docs/#/displaying/) or one of (alternative spellings in brackets, spellings are not case sensitive):
-    <dl>
-        <dt>If left blank</dt>
-        <dd>If the input is a Javascript Date object, output in ISO8601 format. If the input is a recognised date string, output a Javascript Date object</dd>
-        <dt>ISO8601 (ISO)</dt>
-        <dd>ISO 8602 format, e.g. "2015-01-28T16:24:48+00:00"<br>This is the default if the input is a Javascript Date object</dd>
-        <dt>date (jsDate)</dt>
-        <dd>a Javascript Date object<br>This is the default if the input is a recognised date string</dd>
-        <dt>fromNow (timeAgo)</dt>
-        <dd>e.g. 30 minutes ago</dd>
-        <dt>calendar (aroundNow)</dt>
-        <dd>e.g. "Last Monday", "Tomorrow 2:30pm"</dd>
-    </dl>
-4. *Output* - defines the property on the output msg that will carry the formatted date/time string (or Javascript object).
-5. *Name* - as usual, a unique name identifier for the node instance.
-
-#To Do
-
-Summary of things I'd like to do with the moment node (not necessarily immediately):
-
-* [ ] Add a combo box to the Format field with common formats pre-populated
-  Combo boxes are fiddly in HTML. 
-* [ ] Improve the error messages when Moment.JS fails to interpret the input (say why)
-* [ ] Allow more input date/time formats - turns out Moment.JS doesn't really help here. At present, I see too many input failures from US/UK date formats, etc.
-  It would be great if I could parse "human" inputs like "tomorrow" and "2 minutes from now". We can output them now but not input them.
-
-  ~~Partly complete: Added the [parseFormat plugin](https://github.com/gr2m/moment.parseFormat).~~ That failed, see code for details.
-
-  Maybe add a dropdown with a country code to give a hint.
+1. *Get or Set* - Get will get a value from the global variables, set will create/update a global variable.
+2. *Context* - Currently only allows global (for future improvements).
+3. *Variable* - the name of the global variable to get/set. Note that to use this variable in a function node, you would use ```context.global.<Variable>```.
+4. *msg/global* - Whether the source/target variable is a global one or an element in ```msg```.
+5. *source/target* - For GET, this is the target of the data being taken *from* the global variable. for SET, this is the source of the data being given to the global variable.
+   4 & 5 are catenated to make, for example, ```msg.payload``` (the default) or ```context.global.temporary```
+   
+6. *topic* - Optional. Change the topic for the outbound msg.
+7. *name* - Optional. Standard Node-Red name field.
 
 #License 
 
@@ -75,6 +55,6 @@ License for the specific language governing permissions and limitations under th
 
 #Feedback and Support
 
-Please report any issues or suggestions via the [Github Issues list for this repository](https://github.com/TotallyInformation/node-red-contrib-moment/issues).
+Please report any issues or suggestions via the [Github Issues list for this repository](https://github.com/TotallyInformation/node-red-contrib-globalgetset/issues).
 
 For more information, feedback, or community support see the Node-Red Google groups forum at https://groups.google.com/forum/#!forum/node-red
