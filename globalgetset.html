@@ -1,0 +1,162 @@
+<!--
+  Copyright (c) 2015 Julian Knight (Totally Information)
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<!-- This creates and configures the onscreen elements of the node           -->
+
+
+<!-- First, the content of the edit dialog is defined.                       -->
+<script type="text/x-red" data-template-name="globalGetSet">
+    <!-- data-template-name identifies the node type this is for              -->
+    
+    <!-- Each of the following divs creates a field in the edit dialog.       -->
+    <!-- Generally, there should be an input for each property of the node.   -->
+    <!-- The for and id attributes identify the corresponding property        -->
+    <!-- (with the 'node-input-' prefix).                                     -->
+    <!-- The available icon classes are defined Twitter Bootstrap glyphicons  -->
+
+    <!-- ** Unused templates for input types...
+    <div class="form-row">
+        <select id="node-input-action" style="width:95%; margin-right:5px;">
+        <option value="replace">Set the value of the message property</option>
+        <option value="change">Search/replace the value of the message property</option>
+        <option value="delete">Delete the message property</option>
+    </div>
+    </select>
+    <div class="form-row" id="node-reg-row">
+        <label>&nbsp;</label>
+        <input type="checkbox" id="node-input-reg" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-input-reg" style="width: 70%;">Use regular expressions</label>
+    </div>
+    -->
+
+    <!-- Get/Set -->
+    <div class="form-row">
+        <label for="node-input-getset"><i class="fa fa-eye-open"></i> Get or Set</label>
+        <select id="node-input-getset">
+			<option value="get">Get</option>
+        	<option value="set">Set</option>
+		</select>
+    </div>
+	<!-- Context or Context.Global -->
+    <div class="form-row">
+        <label for="node-input-context"><i class="fa fa-eye-open"></i> Context</label>
+        <select id="node-input-context">
+        	<option value="global">Context.Global</option>
+        	<!-- <option value="context">Context</option> -->
+		</select>
+    </div>
+    <div class="form-tips">
+        <code>context.global</code> is available to any node. Is available until Node-Red is restarted.<br>
+        <code>context</code> is temp. storage saved only for this node (Not yet available).
+    </div>
+    <!-- Variable Name -->
+    <div class="form-row">
+        <label for="node-input-variable">Variable</label>
+        <input type="text" id="node-input-variable" style="width: 53%;" placeholder="temporary">
+    </div>
+    <div class="form-tips">
+        The name of the variable. will be prefixed by either <code>context.global</code> or
+        <code>context</code> as chosen above.
+    </div>
+    <!-- Source for set / Target for get -->
+	<!-- TODO: drop-down to switch between msg and context.global -->
+    <div class="form-row">
+        <label for="node-input-source"><i class="fa fa-arrow-right"></i> msg/global</label>
+        <select id="node-input-sourcepref">
+        	<option value="msg">msg</option>
+        	<option value="global">Context.Global</option>
+		</select>
+        <input type="text" id="node-input-source" placeholder="payload">
+    </div>
+    <div class="form-tips">
+		Target for GET. Normally adding to <code>msg</code> for onward processing.<br>
+        Source for SET. Normally from <code>msg</code> but could be from <code>context.global</code>.<br>
+		Default: msg.payload
+    </div>
+
+    <br/>
+    <!-- TOPIC -->
+    <div class="form-row">
+        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic" placeholder="Topic">
+    </div>
+
+    <!-- By convention, most nodes have a 'name' property. The following div -->
+    <!-- provides the necessary field. Should always be the last option      -->
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+
+<!-- Next, some simple help text is provided for the node.                   -->
+<!-- The first <p> is used as the pop-up tool tip when hovering over pallette -->
+<script type="text/x-red" data-help-name="globalGetSet">
+    <p>Get or Set a <code>context.global</code> variable.</p>
+    <p>
+        Use this through node type to either take information from the <code>msg</code> and store it in <code>context.global</code> 
+		or, get information from <code>context.global</code> and add it to the <code>msg</code>.
+    </p>
+    <p>
+        Use <code>context.global</code> for storage that is available to any node, 
+		the value will be available until Node-Red is reset.
+    </p>
+    <p>
+        Use <code>context</code> for temporary storage that is saved only for this node, 
+		the value will be available next time the node instance is triggered.
+    </p>
+    <p>
+		The <code>variable</code> name will be added to either context or context.global as required.
+    </p>
+    <p>
+		You can use this node to feed a global variable into the msg for checking downstream, in a switch node for example.
+    </p>
+	<hr>
+	<h2>Example</h2>
+    <p>
+		If the variable name is "myvar", the context "context" is chosen, get/set is "get" and the source/target is "msg.payload",
+		then msg.payload for the output will be set to the contents of <code>context.myvar</code>.
+    </p>
+</script>
+
+<!-- Finally, the node type is registered along with all of its properties   -->
+<script type="text/javascript">
+    RED.nodes.registerType('globalGetSet',{
+        category: 'storage',      // the palette category
+        color: '#E6E0F8',
+        defaults: {               // defines the editable properties of the node
+            name: {value:""},     //  along with default values.
+            topic: {value:""},    //, required:true}
+            variable: {value:"temporary", required:true},
+            sourcepref: {value:"msg", required:true},
+            source: {value:"payload", required:true},
+            getset: {value:"get", required:true},
+			'context': {value:"global", required:true}
+			// validate:function(v) {return true; }, validate:RED.validators.number(), validate:RED.validators.regex(/[a-z]+/), required:true
+        },
+        inputs:1,               // set the number of inputs - only 0 or 1
+        outputs:1,              // set the number of outputs - 0 to n
+        // set the icon (held in icons dir below where you save the node)
+        icon: "debug.png",     // saved in  icons/myicon.png
+        label: function() {     // sets the default label contents
+            return this.name||this.topic||"Context Getter/Setter";
+        },
+        labelStyle: function() { // sets the class to apply to the label
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
