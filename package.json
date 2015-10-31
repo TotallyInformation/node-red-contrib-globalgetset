@@ -1,55 +1,80 @@
 {
-  "name": "node-red-contrib-global",
-  "version": "1.0.0",
-  "description": "Node-Red Node gets and sets a context.global variable.",
-  "dependencies": {
+  "_args": [
+    [
+      "https://github.com/TotallyInformation/node-red-contrib-globalgetset/tarball/master",
+      "/home/pi/node/nr2"
+    ]
+  ],
+  "_from": "https://github.com/TotallyInformation/node-red-contrib-globalgetset/tarball/master",
+  "_id": "node-red-contrib-global@2.0.0",
+  "_inCache": true,
+  "_location": "/node-red-contrib-global",
+  "_npmUser": {
+    "email": "jk.npm@totallyinformation.com",
+    "name": "totallyinformation"
   },
+  "_npmVersion": "1.4.28",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": null,
+    "raw": "https://github.com/TotallyInformation/node-red-contrib-globalgetset/tarball/master",
+    "rawSpec": "https://github.com/TotallyInformation/node-red-contrib-globalgetset/tarball/master",
+    "scope": null,
+    "spec": "https://github.com/TotallyInformation/node-red-contrib-globalgetset/tarball/master",
+    "type": "remote"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://github.com/TotallyInformation/node-red-contrib-globalgetset/tarball/master",
+  "_shasum": "f505e3d796739b2b01eb40d7ffa182ac8e8a7706",
+  "_shrinkwrap": null,
+  "_spec": "https://github.com/TotallyInformation/node-red-contrib-globalgetset/tarball/master",
+  "_where": "/home/pi/node/nr2",
   "author": {
     "name": "Julian Knight",
     "url": "https://github.com/totallyinformation"
   },
-  "keywords": [
-    "node-red",
-    "global",
-    "context",
-    "get",
-    "set"
-  ],
-  "node-red": {
-    "nodes": {
-      "globalGetSet": "globalgetset.js"
-    }
-  },
-  "main": "globalgetset.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/totallyinformation/node-red-contrib-global"
-  },
-  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/totallyinformation/node-red-contrib-global/issues"
   },
-  "homepage": "https://github.com/totallyinformation/node-red-contrib-global",
-  "_id": "node-red-contrib-global@1.0.0",
-  "_shasum": "f505e3d796739b2b01eb40d7ffa182ac8e8a7706",
-  "_from": "node-red-contrib-global@*",
-  "_resolved": "https://registry.npmjs.org/node-red-contrib-global/-/node-red-contrib-global-1.0.0.tgz",
-  "scripts": {},
-  "_npmVersion": "1.4.28",
-  "_npmUser": {
-    "name": "totallyinformation",
-    "email": "jk.npm@totallyinformation.com"
+  "dependencies": {},
+  "description": "Node-Red Node gets and sets a context.global variable.",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "f505e3d796739b2b01eb40d7ffa182ac8e8a7706",
+    "tarball": "http://registry.npmjs.org/node-red-contrib-global/-/node-red-contrib-global-2.0.0.tgz"
   },
+  "homepage": "https://github.com/totallyinformation/node-red-contrib-global",
+  "installable": true,
+  "keywords": [
+    "context",
+    "get",
+    "global",
+    "node-red",
+    "set"
+  ],
+  "license": "Apache-2.0",
+  "main": "globalgetset.js",
   "maintainers": [
     {
       "name": "totallyinformation",
       "email": "jk.npm@totallyinformation.com"
     }
   ],
-  "dist": {
-    "shasum": "f505e3d796739b2b01eb40d7ffa182ac8e8a7706",
-    "tarball": "http://registry.npmjs.org/node-red-contrib-global/-/node-red-contrib-global-1.0.0.tgz"
+  "name": "node-red-contrib-global",
+  "node-red": {
+    "nodes": {
+      "globalGetSet": "globalgetset.js"
+    }
   },
-  "directories": {},
-  "readme": "README.md"
+  "optionalDependencies": {},
+  "readme": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/totallyinformation/node-red-contrib-global.git"
+  },
+  "scripts": {},
+  "version": "2.0.0"
 }
