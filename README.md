@@ -1,3 +1,6 @@
+### UPDATE v2.1, 2016-03-17
+Please note that this node is no longer needed. Recent updates (0.13) to Node-Red mean that there are now in-built methods for handing context and global variables in more than just the function node. I won't be updating this node because you can use change and switch nodes amongst others and access the context and global variables directly.
+
 ### UPDATE v2, 2015-10-31
 Note that v2 is a potentially breaking change from v1 as the underlying code has changed significantly. V2 is simpler to use and does more than v1 but
 you may need to reset some parameters in your node instances.
